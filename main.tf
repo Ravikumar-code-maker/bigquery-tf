@@ -41,8 +41,51 @@ resource "google_bigquery_dataset" "dataset" {
 resource "google_bigquery_table" "table" {
   dataset_id = google_bigquery_dataset.dataset.dataset_id
   table_id   = var.table_id
+  deletion_protection = false
 
-    
+  schema = jsonencode([ 
+    {
+     name  = "id"
+     type  = "STRING"
+     mode  = "REQUIRED"
+    },
+    {
+    name  = "name"
+    type  = "STRING"
+    mode  = "NULLABLE"
+   },
+   {
+   name  = "email"
+   type  = "STRING"
+   mode  = "NULLABLE"
+   },
+   {
+   name  = "age"
+   type  = "INTEGER"
+   mode  = "NULLABLE"
+   },
+   {
+   name  = "created_at"
+   typen = "TIMESTAMP"
+   mode  = "NULLABLE"
+   },
+   {
+   name  = "is_active"
+   type  = "BOOLEAN"
+   mode  = "NULLABLE"
+   }
+])
+
+time_partitioning {
+  type  = "DAY"
+  filed = "created_at"
+}
+
+clustering = ["name", "email"]
+
+depends_on = [
+  google_project_service.bigquery_api
+]
 }
 
 
