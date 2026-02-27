@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = "terraform-sate"
+    bucket  = "terraform-state-dev1"
     prefix  = "bigquery/vm/state"
   }
 }
