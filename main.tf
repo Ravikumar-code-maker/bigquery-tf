@@ -78,7 +78,7 @@ resource "google_bigquery_table" "table" {
 
 time_partitioning {
   type  = "DAY"
-  filed = "created_at"
+  field = "created_at"
 }
 
 clustering = ["name", "email"]
@@ -87,5 +87,6 @@ depends_on = [
   google_project_service.bigquery_api
 ]
 }
+
 
 
